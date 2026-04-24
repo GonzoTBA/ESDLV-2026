@@ -37,14 +37,14 @@
       <section class="section podcast-section" id="podcast" aria-labelledby="podcast-title">
         <div class="section-inner narrow">
           <p class="eyebrow">Podcast</p>
-          <h1 id="podcast-title">Escucha mi podcast</h1>
-          <p class="section-copy">Puedes encontrarlo en estas plataformas:</p>
+          <h1 id="podcast-title">ESDLV: The Podcast</h1>
+          <p class="section-copy">Un podcast acerca de la vida y todo lo demás con especial intención en aprender, sanar y prosperar. Puedes encontrarlo en:</p>
 
           <div class="podcast-links" aria-label="Plataformas del podcast">
             <!-- Cambia aqui los enlaces del podcast. -->
-            <a class="platform-button spotify" href="https://open.spotify.com/" target="_blank" rel="noopener noreferrer">Spotify</a>
-            <a class="platform-button apple" href="https://podcasts.apple.com/" target="_blank" rel="noopener noreferrer">Apple Podcasts</a>
-            <a class="platform-button youtube" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a class="platform-button spotify" href="https://open.spotify.com/show/7puoKSZk7CjYOjvRfZSgtg" target="_blank" rel="noopener noreferrer">Spotify</a>
+            <a class="platform-button apple" href="https://podcasts.apple.com/us/podcast/el-sentido-de-la-vida-esdlv-the-podcast/id1530683885" target="_blank" rel="noopener noreferrer">Apple Podcasts</a>
+            <!-- <a class="platform-button youtube" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">YouTube</a> -->
           </div>
         </div>
       </section>
@@ -54,7 +54,7 @@
           <div>
             <p class="eyebrow">Contacto</p>
             <h2 id="contact-title">Hablemos</h2>
-            <p class="section-copy">Escribeme y te respondere lo antes posible.</p>
+            <p class="section-copy">Aquí la ventana de oportunidad.</p>
           </div>
 
           <form class="contact-form" id="contact-form" action="contact.php" method="post" novalidate>
@@ -79,6 +79,11 @@
               <label for="message">Mensaje</label>
               <textarea id="message" name="message" rows="6" maxlength="2000" required></textarea>
             </div>
+
+            <label class="legal-consent" for="privacy-acceptance">
+              <input type="checkbox" id="privacy-acceptance" name="privacy_acceptance" value="1" required>
+              <span>He leido y acepto la politica de privacidad y consiento el tratamiento de mis datos para responder a este mensaje.</span>
+            </label>
 
             <button class="submit-button" type="submit">Enviar</button>
             <p class="form-status" id="form-status" role="status" aria-live="polite"></p>

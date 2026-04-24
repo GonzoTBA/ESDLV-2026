@@ -264,6 +264,24 @@ textarea {
   resize: vertical;
 }
 
+.legal-consent {
+  display: grid;
+  grid-template-columns: 1.1rem 1fr;
+  gap: 0.65rem;
+  align-items: start;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.legal-consent input {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin: 0.17rem 0 0;
+  accent-color: var(--accent);
+}
+
 input:invalid:not(:placeholder-shown),
 textarea:invalid:not(:placeholder-shown) {
   border-color: #b54708;

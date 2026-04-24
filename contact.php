@@ -8,11 +8,13 @@ header('X-Content-Type-Options: nosniff');
 
 $config = is_file(__DIR__ . '/config.php') ? require __DIR__ . '/config.php' : [];
 $recipientEmail = is_array($config) ? (string)($config['recipient_email'] ?? '') : '';
+$privacyPolicyVersion = is_array($config) ? (string)($config['privacy_policy_version'] ?? 'sin version') : 'sin version';
 
 $limits = [
     'name' => 80,
     'email' => 120,
     'message' => 2000,
+    'user_agent' => 300,
 ];
 
 function json_response(bool $success, string $message, int $statusCode = 200, array $extra = []): void
@@ -61,6 +63,17 @@ function safe_mail_domain(): string
     }
 
     return $host;
+}
+
+function client_ip(): string
+{
+    $ip = (string)($_SERVER['REMOTE_ADDR'] ?? '');
+
+    if (filter_var($ip, FILTER_VALIDATE_IP)) {
+        return $ip;
+    }
+
+    return 'No disponible';
 }
 
 function too_many_requests(): bool
@@ -121,6 +134,7 @@ if (!empty($_POST['website'] ?? '')) {
 $rawName = (string)($_POST['name'] ?? '');
 $rawEmail = (string)($_POST['email'] ?? '');
 $rawMessage = (string)($_POST['message'] ?? '');
+$privacyAcceptance = (string)($_POST['privacy_acceptance'] ?? '');
 
 if (text_length($rawName) > $limits['name'] || text_length($rawEmail) > $limits['email'] || text_length($rawMessage) > $limits['message']) {
     json_response(false, 'Uno de los campos supera la longitud permitida.', 422);
@@ -134,6 +148,10 @@ if ($name === '' || $email === '' || $message === '') {
     json_response(false, 'Completa todos los campos obligatorios.', 422);
 }
 
+if ($privacyAcceptance !== '1') {
+    json_response(false, 'Debes aceptar la politica de privacidad para enviar el mensaje.', 422);
+}
+
 if (!filter_var($email, FILTER_VALIDATE_EMAIL) || has_header_injection($email) || has_header_injection($name)) {
     json_response(false, 'Introduce un email valido.', 422);
 }
@@ -145,12 +163,22 @@ if (!filter_var($recipientEmail, FILTER_VALIDATE_EMAIL)) {
 $safeName = htmlspecialchars($name, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 $safeEmail = htmlspecialchars($email, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 $safeMessage = htmlspecialchars($message, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+$safeIp = htmlspecialchars(client_ip(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+$safeUserAgent = htmlspecialchars(clean_text((string)($_SERVER['HTTP_USER_AGENT'] ?? 'No disponible'), $limits['user_agent']), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+$safePrivacyPolicyVersion = htmlspecialchars($privacyPolicyVersion, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+$acceptedAt = date('c');
 
 $subject = 'Nuevo mensaje desde la web personal';
 $body = "Has recibido un nuevo mensaje desde la web.\n\n";
 $body .= "Nombre: {$safeName}\n";
 $body .= "Email: {$safeEmail}\n\n";
 $body .= "Mensaje:\n{$safeMessage}\n";
+$body .= "\n---\n";
+$body .= "Aceptacion legal: si\n";
+$body .= "Fecha de aceptacion: {$acceptedAt}\n";
+$body .= "Politica aceptada: politica de privacidad version {$safePrivacyPolicyVersion}\n";
+$body .= "IP: {$safeIp}\n";
+$body .= "Navegador: {$safeUserAgent}\n";
 
 $headers = [
     'From: Web personal <no-reply@' . safe_mail_domain() . '>',
