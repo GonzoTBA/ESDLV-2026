@@ -168,7 +168,7 @@ $safeUserAgent = htmlspecialchars(clean_text((string)($_SERVER['HTTP_USER_AGENT'
 $safePrivacyPolicyVersion = htmlspecialchars($privacyPolicyVersion, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 $acceptedAt = date('c');
 
-$subject = 'Nuevo mensaje desde la web personal';
+$subject = 'Nuevo mensaje desde ESDLV';
 $body = "Has recibido un nuevo mensaje desde la web.\n\n";
 $body .= "Nombre: {$safeName}\n";
 $body .= "Email: {$safeEmail}\n\n";
@@ -181,7 +181,7 @@ $body .= "IP: {$safeIp}\n";
 $body .= "Navegador: {$safeUserAgent}\n";
 
 $headers = [
-    'From: Web personal <no-reply@' . safe_mail_domain() . '>',
+    'From: ESDLV <no-reply@' . safe_mail_domain() . '>',
     'Reply-To: ' . $safeEmail,
     'Content-Type: text/plain; charset=UTF-8',
     'X-Mailer: PHP/' . phpversion(),
@@ -190,7 +190,7 @@ $headers = [
 $sent = @mail($recipientEmail, $subject, $body, implode("\r\n", $headers));
 
 if (!$sent) {
-    json_response(false, 'No se pudo enviar el mensaje en este momento. Intentalo de nuevo mas tarde.', 500);
+    json_response(false, 'No se pudo enviar el mensaje en este momento. Intentalo de nuevo más tarde.', 500);
 }
 
 unset($_SESSION['csrf_token'], $_SESSION['csrf_used']);
