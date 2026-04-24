@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Web personal con podcast y formulario de contacto.">
+    <title>ESDLV</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Saltar al contenido</a>
+
+    <header class="site-header" id="inicio">
+      <nav class="top-nav" aria-label="Navegacion principal">
+        <a class="brand" href="#inicio" aria-label="Ir al inicio">ESDLV</a>
+        <div class="nav-links">
+          <a href="#inicio">Inicio</a>
+          <a href="#podcast">Podcast</a>
+          <a href="#contacto">Contacto</a>
+        </div>
+      </nav>
+
+      <div class="hero-image-wrap">
+        <!-- Cambia la imagen principal en la linea siguiente. Recomendado: 2400x1100 px. -->
+        <img
+          class="hero-image"
+          src="assets/header.jpg"
+          alt="Imagen de cabecera de la web personal"
+          width="2400"
+          height="1100"
+          onerror="this.hidden=true"
+        >
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="section podcast-section" id="podcast" aria-labelledby="podcast-title">
+        <div class="section-inner narrow">
+          <p class="eyebrow">Podcast</p>
+          <h1 id="podcast-title">Escucha mi podcast</h1>
+          <p class="section-copy">Puedes encontrarlo en estas plataformas:</p>
+
+          <div class="podcast-links" aria-label="Plataformas del podcast">
+            <!-- Cambia aqui los enlaces del podcast. -->
+            <a class="platform-button spotify" href="https://open.spotify.com/" target="_blank" rel="noopener noreferrer">Spotify</a>
+            <a class="platform-button apple" href="https://podcasts.apple.com/" target="_blank" rel="noopener noreferrer">Apple Podcasts</a>
+            <a class="platform-button youtube" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">YouTube</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section contact-section" id="contacto" aria-labelledby="contact-title">
+        <div class="section-inner contact-layout">
+          <div>
+            <p class="eyebrow">Contacto</p>
+            <h2 id="contact-title">Hablemos</h2>
+            <p class="section-copy">Escribeme y te respondere lo antes posible.</p>
+          </div>
+
+          <form class="contact-form" id="contact-form" action="contact.php" method="post" novalidate>
+            <input type="hidden" name="csrf_token" id="csrf-token" value="">
+
+            <div class="honeypot" aria-hidden="true">
+              <label for="website">Website</label>
+              <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <div class="field">
+              <label for="name">Nombre</label>
+              <input type="text" id="name" name="name" autocomplete="name" maxlength="80" required>
+            </div>
+
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" autocomplete="email" maxlength="120" required>
+            </div>
+
+            <div class="field">
+              <label for="message">Mensaje</label>
+              <textarea id="message" name="message" rows="6" maxlength="2000" required></textarea>
+            </div>
+
+            <button class="submit-button" type="submit">Enviar</button>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
