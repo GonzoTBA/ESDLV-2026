@@ -25,7 +25,7 @@
         csrfInput.value = data.token;
       }
     } catch (error) {
-      setStatus("No se pudo preparar el formulario. Intentalo de nuevo en unos segundos.", "error");
+      setStatus("No se pudo preparar el formulario. Inténtalo de nuevo en unos segundos.", "error");
     }
   };
 
@@ -73,7 +73,7 @@
 
       await loadCsrfToken();
     } catch (error) {
-      setStatus("No se pudo enviar el mensaje. Intentalo de nuevo mas tarde.", "error");
+      setStatus("No se pudo enviar el mensaje. Inténtalo de nuevo más tarde.", "error");
     } finally {
       submitButton.disabled = false;
       submitButton.textContent = "Enviar";

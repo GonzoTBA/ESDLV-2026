@@ -8,7 +8,7 @@ header('X-Content-Type-Options: nosniff');
 
 $config = is_file(__DIR__ . '/config.php') ? require __DIR__ . '/config.php' : [];
 $recipientEmail = is_array($config) ? (string)($config['recipient_email'] ?? '') : '';
-$privacyPolicyVersion = is_array($config) ? (string)($config['privacy_policy_version'] ?? 'sin version') : 'sin version';
+$privacyPolicyVersion = is_array($config) ? (string)($config['privacy_policy_version'] ?? 'sin versión') : 'sin versión';
 
 $limits = [
     'name' => 80,
@@ -104,11 +104,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && ($_GET['action'] ?? '') === 'csrf') 
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    json_response(false, 'Metodo no permitido.', 405);
+    json_response(false, 'Método no permitido.', 405);
 }
 
 if (too_many_requests()) {
-    json_response(false, 'Has enviado demasiados intentos. Espera unos minutos e intentalo de nuevo.', 429);
+    json_response(false, 'Has enviado demasiados intentos. Espera unos minutos e inténtalo de nuevo.', 429);
 }
 
 $postedToken = $_POST['csrf_token'] ?? '';
@@ -122,7 +122,7 @@ if (
     || !hash_equals($sessionToken, $postedToken)
     || !empty($_SESSION['csrf_used'])
 ) {
-    json_response(false, 'La sesion del formulario ha caducado. Recarga la pagina e intentalo de nuevo.', 400);
+    json_response(false, 'La sesión del formulario ha caducado. Recarga la página e inténtalo de nuevo.', 400);
 }
 
 $_SESSION['csrf_used'] = true;
@@ -149,11 +149,11 @@ if ($name === '' || $email === '' || $message === '') {
 }
 
 if ($privacyAcceptance !== '1') {
-    json_response(false, 'Debes aceptar la politica de privacidad para enviar el mensaje.', 422);
+    json_response(false, 'Debes aceptar la política de privacidad para enviar el mensaje.', 422);
 }
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL) || has_header_injection($email) || has_header_injection($name)) {
-    json_response(false, 'Introduce un email valido.', 422);
+    json_response(false, 'Introduce un email válido.', 422);
 }
 
 if (!filter_var($recipientEmail, FILTER_VALIDATE_EMAIL)) {
@@ -174,9 +174,9 @@ $body .= "Nombre: {$safeName}\n";
 $body .= "Email: {$safeEmail}\n\n";
 $body .= "Mensaje:\n{$safeMessage}\n";
 $body .= "\n---\n";
-$body .= "Aceptacion legal: si\n";
-$body .= "Fecha de aceptacion: {$acceptedAt}\n";
-$body .= "Politica aceptada: politica de privacidad version {$safePrivacyPolicyVersion}\n";
+$body .= "Aceptación legal: sí\n";
+$body .= "Fecha de aceptación: {$acceptedAt}\n";
+$body .= "Política aceptada: política de privacidad versión {$safePrivacyPolicyVersion}\n";
 $body .= "IP: {$safeIp}\n";
 $body .= "Navegador: {$safeUserAgent}\n";
 
@@ -190,7 +190,7 @@ $headers = [
 $sent = @mail($recipientEmail, $subject, $body, implode("\r\n", $headers));
 
 if (!$sent) {
-    json_response(false, 'No se pudo enviar el mensaje en este momento. Intentalo de nuevo más tarde.', 500);
+    json_response(false, 'No se pudo enviar el mensaje en este momento. Inténtalo de nuevo más tarde.', 500);
 }
 
 unset($_SESSION['csrf_token'], $_SESSION['csrf_used']);
