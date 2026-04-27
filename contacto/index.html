@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Formulario de contacto de ESDLV.">
+    <title>Contacto | ESDLV</title>
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../styles.css">
+  </head>
+  <body class="contact-page">
+    <a class="skip-link" href="#main">Saltar al contenido</a>
+
+    <header class="site-header" id="inicio">
+      <nav class="top-nav" aria-label="Navegación principal">
+        <a class="brand" href="../index.html#inicio" aria-label="Ir al inicio">ESDLV</a>
+        <div class="nav-links">
+          <a href="../index.html#inicio">Inicio</a>
+          <a href="../index.html#podcast">Podcast</a>
+          <a href="./">Contacto</a>
+        </div>
+      </nav>
+
+      <div class="hero-image-wrap">
+        <img
+          class="hero-image"
+          src="../assets/header.jpg"
+          alt="Imagen de cabecera de la web personal"
+          width="2400"
+          height="1100"
+          onerror="this.hidden=true"
+        >
+      </div>
+    </header>
+
+    <main class="contact-only-main" id="main" aria-label="Contacto">
+      <form class="contact-form" id="contact-form" action="../contact.php" method="post" novalidate>
+        <input type="hidden" name="csrf_token" id="csrf-token" value="">
+
+        <div class="honeypot" aria-hidden="true">
+          <label for="website">Website</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label for="name">Nombre</label>
+          <input type="text" id="name" name="name" autocomplete="name" maxlength="80" required>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email" maxlength="120" required>
+        </div>
+
+        <div class="field">
+          <label for="message">Mensaje</label>
+          <textarea id="message" name="message" rows="6" maxlength="2000" required></textarea>
+        </div>
+
+        <label class="legal-consent" for="privacy-acceptance">
+          <input type="checkbox" id="privacy-acceptance" name="privacy_acceptance" value="1" required>
+          <span>He leído y acepto la <a href="../politica-privacidad.html" target="_blank" rel="noopener noreferrer">política de privacidad</a> y consiento el tratamiento de mis datos para responder a este mensaje.</span>
+        </label>
+
+        <button class="submit-button" type="submit">Enviar</button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </main>
+
+    <footer class="site-footer">
+      <div class="section-inner footer-inner">
+        <p>ESDLV</p>
+        <nav class="legal-links" aria-label="Enlaces legales">
+          <a href="../aviso-legal.html">Aviso legal</a>
+          <a href="../politica-privacidad.html">Política de privacidad</a>
+          <a href="../politica-cookies.html">Política de cookies</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="../script.js" defer></script>
+  </body>
+</html>

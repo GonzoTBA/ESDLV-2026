@@ -217,6 +217,21 @@ h2 {
   background: #f7f1e9;
 }
 
+.contact-page {
+  min-height: 100vh;
+  background: #f7f1e9;
+}
+
+.contact-only-main {
+  display: grid;
+  place-items: center;
+  padding: clamp(4rem, 8vw, 7rem) clamp(1rem, 4vw, 2rem);
+}
+
+.contact-only-main .contact-form {
+  width: min(560px, 100%);
+}
+
 .contact-layout {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(300px, 1.1fr);

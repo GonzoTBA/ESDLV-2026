@@ -15,7 +15,10 @@
 
   const loadCsrfToken = async () => {
     try {
-      const response = await fetch("contact.php?action=csrf", {
+      const csrfUrl = new URL(form.action);
+      csrfUrl.searchParams.set("action", "csrf");
+
+      const response = await fetch(csrfUrl, {
         credentials: "same-origin",
         headers: { Accept: "application/json" }
       });
